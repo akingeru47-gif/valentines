@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #ffe6f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .heart-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+  }
+
+  .big-heart {
+    position: absolute;
+    font-size: 260px;
+    color: hotpink;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+
+  .question {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 220px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+
+  .buttons {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+  }
+
+  button {
+    padding: 8px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .yes {
+    background: hotpink;
+    color: white;
+  }
+
+  .no {
+    background: white;
+    color: hotpink;
+  }
+
+  .flower {
+    position: absolute;
+    font-size: 36px;
+    z-index: 3;
+  }
+
+  .floating-heart {
+    position: absolute;
+    color: #ffb3d9;
+    font-size: 18px;
+    animation: float 4s linear infinite;
+    opacity: 0.9;
+    z-index: 2;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(40px) scale(1);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-40px) scale(1.4);
+      opacity: 0;
+    }
+  }
+
+  .message {
+    position: absolute;
+    color: hotpink;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+    z-index: 5;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="heart-container" id="container">
+  <div class="big-heart">💗</div>
+
+  <div class="question" id="question">
+    Will you be my<br>Valentine? 💕
+  </div>
+
+  <div class="buttons" id="buttons">
+    <button class="yes" onclick="yesClick()">YES 💖</button>
+    <button class="no" onclick="noClick()">NO 💔</button>
+  </div>
+
+  <!-- Yellow flowers -->
+  <div class="flower" style="top:-10px; left:40px;">🌼</div>
+  <div class="flower" style="top:-10px; right:40px;">🌼</div>
+  <div class="flower" style="bottom:-10px; left:40px;">🌼</div>
+  <div class="flower" style="bottom:-10px; right:40px;">🌼</div>
+</div>
+
+<div class="message" id="message"></div>
+
+<script>
+  const container = document.getElementById("container");
+  const message = document.getElementById("message");
+
+  function yesClick() {
+    document.getElementById("question").style.display = "none";
+    document.getElementById("buttons").style.display = "none";
+    message.style.display = "block";
+    message.innerHTML = "YAY!!! 💕💍";
+  }
+
+  function noClick() {
+    message.style.display = "block";
+    message.innerHTML = "Try again 😏💖";
+  }
+
+  function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random() * 160 + 70 + "px";
+    heart.style.top = Math.random() * 160 + 70 + "px";
+    heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+
+    container.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createFloatingHeart, 300);
+</script>
+
+</body>
+</html>
